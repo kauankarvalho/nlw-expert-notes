@@ -1,5 +1,8 @@
 import logo from "./assets/logo-nlw-expert.svg"
 
+import { NewNoteCard } from "./components/NewNoteCard"
+import { NoteCard } from "./components/NoteCard"
+
 export function App() {
   return (
     <div className="mx-auto my-12 max-w-6xl space-y-6">
@@ -14,8 +17,13 @@ export function App() {
           />
         </form>
 
-        <div className="h-px w-full bg-slate-700"></div>
+        <div className="h-px w-full bg-slate-700" />
       </header>
+
+      <main className="grid auto-rows-[250px] grid-cols-3 gap-6">
+        <NewNoteCard />
+        <NoteCard />
+      </main>
     </div>
   )
 }
