@@ -1,7 +1,21 @@
 import * as Dialog from "@radix-ui/react-dialog"
+import { ChangeEvent, useState } from "react"
 import { X } from "lucide-react"
 
+
 export function NewNoteCard() {
+  const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
+
+  function handleStartEditor() {
+    setShouldShowOnboarding(false)
+  }
+
+  function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
+    if (event.target.value === "") {
+      setShouldShowOnboarding(true)
+    }
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger className="flex flex-col gap-3 rounded-md bg-slate-700 p-5 text-left outline-none hover:ring-2 hover:ring-slate-500 focus-visible:ring-2 focus-visible:ring-lime-400">
@@ -27,17 +41,28 @@ export function NewNoteCard() {
                 Adicionar nota
               </span>
 
-              <p className="text-sm leading-6 text-slate-400">
-                Comece{" "}
-                <button className="font-medium text-lime-400 hover:underline">
-                  gravando uma nota
-                </button>{" "}
-                em áudio ou se preferir{" "}
-                <button className="font-medium text-lime-400 hover:underline">
-                  utilize apenas texto
-                </button>
-                .
-              </p>
+              {shouldShowOnboarding ? (
+                <p className="text-sm leading-6 text-slate-400">
+                  Comece{" "}
+                  <button className="font-medium text-lime-400 hover:underline">
+                    gravando uma nota
+                  </button>{" "}
+                  em áudio ou se preferir{" "}
+                  <button
+                    className="font-medium text-lime-400 hover:underline"
+                    onClick={handleStartEditor}
+                  >
+                    utilize apenas texto
+                  </button>
+                  .
+                </p>
+              ) : (
+                <textarea
+                  className="resize-node flex-1 bg-transparent text-sm leading-6 text-slate-400 outline-none"
+                  autoFocus
+                  onChange={handleContentChanged}
+                />
+              )}
             </div>
 
             <button
